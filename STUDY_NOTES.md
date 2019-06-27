@@ -30,8 +30,12 @@
 
 从点击屏幕上的元素到触发元素的 click 事件，移动浏览器会有大约 300 毫秒的等待时间。为什么这么设计呢？ 因为它想看看你是不是要进行双击（double tap）操作。
 
+
+
 ## Babel
 
 ### babel-polyfill
+
+在使用时，polyfill 的导入语句必须在 main.js 中的第一行。
 
 ### babel-runtime
