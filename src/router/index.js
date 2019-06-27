@@ -19,7 +19,7 @@ export default new Router({
     component: Singer
   }, {
     path: '/rank',
-    component: Rankg
+    component: Rank
   }, {
     path: '/search',
     component: Search
