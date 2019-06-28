@@ -1,5 +1,6 @@
 import jsonp from 'common/js/jsonp'
 import {commonParam, options} from './config'
+import axios from 'axios'
 
 export function getRecommend() {
   const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
@@ -11,4 +12,9 @@ export function getRecommend() {
   })
 
   return jsonp(url, data, options)
+}
+
+// https://github.com/caijinyc/vue-music-webapp
+export function getBanner() {
+  return axios.get('http://120.79.162.149:3000/banner')
 }

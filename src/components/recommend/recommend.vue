@@ -1,12 +1,11 @@
 <template>
   <div class="recommend">
     <div class="recommend-content">
-      <div v-if="recommends.length" class="slider-wrapper">
+      <div v-if="banners.length" class="slider-wrapper">
         <slider>
-          <div v-for="item in recommends" :key="item.id">
-            <a :href="item.linkUrl">
-              <img :src="item.picUrl">
-            </a>
+<!--          <div><img src="http://p1.music.126.net/phGLw7jdKIPO5A_jlx9o9w==/109951164176047831.jpg" alt=""></div>-->
+          <div v-for="item in banners" :key="item.id">
+            <img :src="item.picUrl"/>
           </div>
         </slider>
       </div>
@@ -19,20 +18,31 @@
 
 <script>
 import Slider from 'base/slider/slider'
-import {getRecommend} from 'api/recommend'
+import {getRecommend, getBanner} from 'api/recommend'
 import {ERR_OK} from 'api/config'
 
 export default {
   name: 'recommend',
   created() {
-    this._getRecommend()
+    this._getBanner()
+    // this._getRecommend()
   },
   data () {
     return {
-      recommends: []
+      recommends: [],
+      banners: []
     }
   },
   methods: {
+    _getBanner() {
+      getBanner().then((res) => {
+        console.log(res)
+        res = res.data
+        if (res.code === 200) {
+          this.banners = res.banners.splice(4)
+        }
+      })
+    },
     _getRecommend () {
       getRecommend().then((res) => {
         // console.log(res)
