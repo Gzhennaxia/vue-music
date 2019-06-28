@@ -133,3 +133,6 @@ export function param(data) {
 }
 ```
 
+
+
+浏览器的刷新一般是 17ms 一次。 
