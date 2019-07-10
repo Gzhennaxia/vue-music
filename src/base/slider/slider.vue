@@ -29,6 +29,9 @@ export default {
       default: 4000
     }
   },
+  beforeDestroy() {
+    clearTimeout(this.timer)
+  },
   mounted() {
     setTimeout(() => {
       this._setSliderWidth()

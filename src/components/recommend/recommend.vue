@@ -1,12 +1,17 @@
 <template>
   <div class="recommend">
     <div class="recommend-content">
-      <div v-if="banners.length" class="slider-wrapper">
+<!--      <div v-if="banners.length" class="slider-wrapper">-->
+<!--        <slider>-->
+<!--          <div v-for="item in banners" :key="item.id">-->
+<!--            <img :src="item.picUrl"/>-->
+<!--          </div>-->
+<!--        </slider>-->
+<!--      </div>-->
+      <div class="slider-wrapper">
         <slider>
-<!--          <div><img src="http://p1.music.126.net/phGLw7jdKIPO5A_jlx9o9w==/109951164176047831.jpg" alt=""></div>-->
-          <div v-for="item in banners" :key="item.id">
-            <img :src="item.picUrl"/>
-          </div>
+          <div><img src="/static/images/banner/109951164176047831.jpg" alt=""></div>
+          <div><img src="/static/images/banner/41073985723323.jpeg" alt=""></div>
         </slider>
       </div>
     </div>
@@ -18,14 +23,15 @@
 
 <script>
 import Slider from 'base/slider/slider'
-import {getRecommend, getBanner} from 'api/recommend'
+import {getRecommend, getBanner, getDiscList} from 'api/recommend'
 import {ERR_OK} from 'api/config'
 
 export default {
   name: 'recommend',
   created() {
-    this._getBanner()
+    // this._getBanner()
     // this._getRecommend()
+    this._getDiscList()
   },
   data () {
     return {
@@ -48,6 +54,14 @@ export default {
         // console.log(res)
         if (res.code === ERR_OK) {
           this.recommends = res.data.slider
+        }
+      })
+    },
+    _getDiscList() {
+      getDiscList().then((res) => {
+        if (res.code === ERR_OK) {
+          console.log('res.data.list', res.data.list)
+          // this.discList = res.data.list
         }
       })
     }
