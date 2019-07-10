@@ -221,3 +221,15 @@ devServer: {
 }
 ```
 
+## 字符转移
+
+v-html 指令
+
+
+
+## Better-scroll
+
+> [better-scroll滚动排坑](https://juejin.im/post/5a79230ef265da4e896ab029)
+
+- better-scroll 只处理容器（wrapper）的第一个子元素（content）的滚动，其它的元素都会被忽略。
+- 父级div要设置溢出隐藏，并且固定高度
