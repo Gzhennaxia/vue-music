@@ -233,3 +233,47 @@ v-html 指令
 
 - better-scroll 只处理容器（wrapper）的第一个子元素（content）的滚动，其它的元素都会被忽略。
 - 父级div要设置溢出隐藏，并且固定高度
+
+
+
+设置标志位，使得只执行一次
+
+```js
+loadImage() {
+  if (!this.checkloaded) {
+    this.checkloaded = true
+    this.$refs.scroll.refresh()
+  }
+}
+```
+
+
+
+Better-scroll 滚动的思路就是根据父元素和子元素的高度的差计算出可以滚动的位置。所以需要在元素高度改变（DOM 变化）的时候刷新 scroll 实例，否则会导致不能滚动、滚动不到底部等这些问题。
+
+
+
+## 图片懒加载
+
+> [Vue-Lazyload](https://github.com/hilongjw/vue-lazyload)
+
+
+
+## Fastclick 与 better-croll 的 click 冲突
+
+添加 `class="needsclick"` 
+
+
+
+## transform: translateY(-50%) 实现元素垂直居中效果
+
+translate 属性值的单位如果为 %，则其相对的是元素本身的高度。
+
+```css
+.loading-container
+  position: absolute
+  width: 100%
+  top: 50%
+  transform: translateY(-50%)
+```
+

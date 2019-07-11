@@ -2,17 +2,23 @@
   <div class="recommend">
     <scroll ref="scroll" class="recommend-content" :data="discList">
       <div>
-        <!--      <div v-if="banners.length" class="slider-wrapper">-->
-        <!--        <slider>-->
-        <!--          <div v-for="item in banners" :key="item.id">-->
-        <!--            <img :src="item.picUrl"/>-->
-        <!--          </div>-->
-        <!--        </slider>-->
-        <!--      </div>-->
+<!--              <div v-if="banners.length" class="slider-wrapper">-->
+<!--                <slider>-->
+<!--                  <div v-for="item in banners" :key="item.id">-->
+<!--                    <a :href="item.linkUrl">-->
+<!--                      <img class="needsclick" @load="loadImage" :src="item.picUrl"/>-->
+<!--                    </a>-->
+<!--                  </div>-->
+<!--                </slider>-->
+<!--              </div>-->
         <div class="slider-wrapper">
           <slider>
-            <div><img src="/static/images/banner/109951164176047831.jpg" alt=""></div>
-            <div><img src="/static/images/banner/41073985723323.jpeg" alt=""></div>
+            <div>
+              <a href="https:www.baidu.com">
+                <img class="needsclick" @load="loadImage" src="/static/images/banner/109951164176047831.jpg" alt="">
+              </a>
+            </div>
+            <div><img @load="loadImage" src="/static/images/banner/41073985723323.jpeg" alt=""></div>
           </slider>
         </div>
         <div class="recommend-list">
@@ -20,7 +26,7 @@
           <ul>
             <li v-for="(item, index) in discList" :key="index" class="item">
               <div class="icon">
-                <img width="60" height="60" :src="item.imgurl">
+                <img width="60" height="60" v-lazy="item.imgurl">
               </div>
               <div class="text">
                 <h2 class="name" v-html="item.creator.name"></h2>
@@ -29,6 +35,9 @@
             </li>
           </ul>
         </div>
+      </div>
+      <div class="loading-container" v-show="!discList.length">
+        <loading></loading>
       </div>
     </scroll>
   </div>
@@ -39,6 +48,7 @@ import Slider from 'base/slider/slider'
 import {getRecommend, getBanner, getDiscList} from 'api/recommend'
 import {ERR_OK} from 'api/config'
 import Scroll from 'base/scroll/scroll'
+import Loading from 'base/loading/loading'
 
 export default {
   name: 'recommend',
@@ -76,14 +86,21 @@ export default {
       getDiscList().then((res) => {
         if (res.code === ERR_OK) {
           // console.log('res.data.list', res.data.list)
-          this.discList = res.data.list
+          // this.discList = res.data.list
         }
       })
+    },
+    loadImage() {
+      if (!this.checkloaded) {
+        this.checkloaded = true
+        this.$refs.scroll.refresh()
+      }
     }
   },
   components: {
     Slider,
-    Scroll
+    Scroll,
+    Loading
   }
 }
 </script>
@@ -132,4 +149,9 @@ export default {
               color: $color-text
             .desc
               color: $color-text-d
+      .loading-container
+        position: absolute
+        width: 100%
+        top: 50%
+        transform: translateY(-50%)
 </style>
